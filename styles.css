@@ -18,3 +18,6 @@ input[type=text]:focus{
 .todos li{
     background: #423a6f;
 }
+.filtered{
+    display: none !important;
+}
