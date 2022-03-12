@@ -57,3 +57,46 @@ const html =
 
 };
 ````
+### Deleting a todo 
+We have placed a trashcan icon infront of our todo items, we want the users to click on the trashbin to delete that todo. We will reference the ul through the todos class to access all the li's in it, add a click event listener to it and a remove method to the clicked li. 
+
+````
+const list = document.querySelector('.todos');
+list.addEventListener('click', e => {
+  if(e.target.classList.contains('delete')){
+      e.target.parentElement.remove();
+  }
+});
+````
+### Searching todos 
+In our htmk, we have another form, on the top, to search individual todo items, our goal is to show the users todos that matches their search terms. 
+This seems a bit tricky. Here is how I have tackled it: 
+We first need to get the terms a users is typing in the search bar, we can access that data in realtime by referncing the class designated to search bar, it is called search, we then access the input via the input tag. 
+````
+const search = document.querySelector('.search input');
+````
+Then we will add a keyup event listerner, and a call back function like so: 
+````
+search.addEventListener('keyup', () => {
+    const term = search.value.trim().toLowerCase();
+    filterTodos(term);
+
+});
+````
+The filterTodos function that we are calling above, serves the purpose of filtering users inout and then two things: hiding the todos that do not match with user's input and the second is only showing the one that is a match. 
+
+````
+const filterTodos = (term) => {
+   
+   
+    Array.from(list.children)
+   .filter((todo)=> !todo.textContent.toLowerCase().includes(term))
+   .forEach((todo) => todo.classList.add('filtered'));  
+
+   Array.from(list.children)
+   .filter((todo)=> todo.textContent.toLowerCase().includes(term))
+   .forEach((todo) => todo.classList.remove('filtered')); 
+};
+
+
+````
